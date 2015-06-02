@@ -1,0 +1,33 @@
+{
+  "name": "lipsumator",
+  "version": "1.0.0",
+  "author": "Ash",
+  "license": "MIT",
+  "description": "Custom lorem ipsum generator",
+  "keywords": [
+    "lorem ipsum",
+    "lorem",
+    "ipsum",
+    "placeholder",
+    "dummy",
+    "text"
+  ],
+  "main": "./dist/index.js",
+  "bin": "./dist/bin.js",
+  "scripts": {
+    "compile": "babel src --out-dir dist",
+    "prepublish": "npm run compile",
+    "test": "babel-node ./node_modules/.bin/tape ./test/*.js ./test/**/*.js | tap-spec"
+  },
+  "dependencies": {
+    "babel": "^5.4.7",
+    "merge": "^1.2.0",
+    "random-js": "^1.0.4",
+    "upper-case-first": "^1.1.1",
+    "yargs": "^3.10.0"
+  },
+  "devDependencies": {
+    "tap-spec": "^3.0.0",
+    "tape": "^4.0.0"
+  }
+}
