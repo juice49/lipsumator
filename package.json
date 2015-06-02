@@ -19,6 +19,10 @@
     "prepublish": "npm run compile",
     "test": "babel-node ./node_modules/.bin/tape ./test/*.js ./test/**/*.js | tap-spec"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/juice49/lipsumator.git"
+  },
   "dependencies": {
     "babel": "^5.4.7",
     "merge": "^1.2.0",
