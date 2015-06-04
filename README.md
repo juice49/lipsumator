@@ -12,7 +12,7 @@ Fishy ipsum
 
 Fishier ipsum
 
-`lipsumator --concentration 0.75 --paragraphs 1 --dictionary 'goldfish,mahi-mahi,atlantic\ cod,swordfish,zebrafish,carp'`
+`lipsumator --concentration 0.75 --paragraphs 1 --dictionary goldfish,mahi-mahi,atlantic\ cod,swordfish,zebrafish,carp`
 
 ## API
 
