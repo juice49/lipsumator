@@ -8,7 +8,7 @@ Lipsumator comes with a CLI. Install Lipsumator globally to get access to it: `n
 
 Fishy ipsum
 
-`lipsumator --paragraphs 1 --dictionary 'goldfish,mahi-mahi,atlantic\ cod,swordfish,zebrafish,carp'`
+`lipsumator --paragraphs 1 --dictionary goldfish,mahi-mahi,atlantic\ cod,swordfish,zebrafish,carp`
 
 Fishier ipsum
 
