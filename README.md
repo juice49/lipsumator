@@ -30,6 +30,7 @@ const lipsum = stream({
     'linda',
     'tina',
     'gene',
+    'louise',
     'teddy',
     'mort',
     'mr frond',
