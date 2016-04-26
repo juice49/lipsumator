@@ -2,7 +2,7 @@
 'use strict';
 
 const yargs = require('yargs');
-const lipsumator = require('./');
+const { stream, generators } = require('./');
 const options = {};
 
 const args = yargs
@@ -21,7 +21,7 @@ const args = yargs
   .alias('help', 'h')
   .argv;
 
-const mode = Object.keys(lipsumator.generators)
+const mode = Object.keys(generators)
   .find(mode => args[mode]);
 
 if(mode) {
@@ -40,6 +40,4 @@ if(args.concentration) {
   options.concentration = args.concentration;
 }
 
-lipsumator
-  .stream(options)
-  .pipe(process.stdout);
+stream(options).pipe(process.stdout);
