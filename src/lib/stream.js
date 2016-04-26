@@ -2,16 +2,15 @@
 
 
 
-const util = require('util');
+const { inherits } = require('util');
 const { Readable } = require('stream');
-const merge = require('merge');
 const generators = require('./generators');
 
 
 
 module.exports = function stream(options) {
 
-  options = merge({
+  options = Object.assign({
     mode: 'paragraphs',
     quantity: Infinity
   }, options);
@@ -19,7 +18,7 @@ module.exports = function stream(options) {
   const generator = generators[options.mode];
   const generate = generator(options.quantity, options);
 
-  util.inherits(Stream, Readable);
+  inherits(Stream, Readable);
 
   function Stream(options) {
     Readable.call(this, options);
@@ -30,7 +29,8 @@ module.exports = function stream(options) {
     const next = generate.next();
 
     if(next.done) {
-      return this.push(null);
+      this.push(null);
+      return;
     }
 
     this.push(next.value);

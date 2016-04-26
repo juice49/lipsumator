@@ -4,11 +4,13 @@ const sentences = require('./sentences');
 
 module.exports = function* paragraphs(quantity = 1, options) {
 
-  const paragraph = [];
+  /*const paragraph = [];
 
-  for(let sentence of sentences(4, options)) {
+  for(const sentence of sentences(4, options)) {
     paragraph.push(sentence);
-  }
+  }*/
+
+  const paragraph = Array.from(sentences(4, options));
 
   yield paragraph.join(' ');
 
