@@ -1,21 +1,45 @@
 'use strict';
 
 const sentences = require('./sentences');
+const shouldPrepend = require('../should-prepend');
+const { open, close } = require('../wrap');
 
 module.exports = function* paragraphs(quantity = 1, options) {
 
-  /*const paragraph = [];
+  const sentenceOptions = Object.assign({}, options, {
+    prependEach: null,
+    wrapAll: null,
+    wrapEach: null
+  });
 
-  for(const sentence of sentences(4, options)) {
-    paragraph.push(sentence);
-  }*/
+  let remaining = quantity;
+  const paragraph = [ ...sentences(4, sentenceOptions) ];
+  const { wrapAll, wrapEach } = options;
 
-  const paragraph = Array.from(sentences(4, options));
+  if(wrapAll) {
+    yield open(wrapAll);
+  }
 
-  yield paragraph.join(' ');
+  while(remaining --) {
 
-  if(quantity > 1) {
-    yield* paragraphs(quantity - 1, options);
+    if(shouldPrepend(options, quantity, remaining + 1)) {
+      yield ' ';
+    }
+
+    if(wrapEach) {
+      yield open(wrapEach);
+    }
+
+    yield paragraph.join(' ');
+
+    if(wrapEach) {
+      yield close(wrapEach);
+    }
+
+  }
+
+  if(wrapAll) {
+    yield close(wrapAll);
   }
 
 };

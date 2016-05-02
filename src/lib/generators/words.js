@@ -1,25 +1,45 @@
 'use strict';
 
-
-
 const phrase = require('../phrase');
 const parsePhrase = require('../parse-phrase');
+const shouldPrepend = require('../should-prepend');
+const { open, close } = require('../wrap');
 
+module.exports = function* words(quantity, options = {}) {
 
+  const { wrapAll, wrapEach } = options;
+  let remaining = quantity;
+  let previous;
 
-module.exports = function* words(quantity, options, _previous) {
-
-  const current = phrase(quantity, options, _previous);
-  const currentPhrase = parsePhrase(current);
-
-  for(let word of currentPhrase) {
-    yield word;
+  if(wrapAll) {
+    yield open(wrapAll);
   }
 
-  quantity -= currentPhrase.length;
+  while(remaining --) {
 
-  if(quantity > 0) {
-    yield* words(quantity, options, current);
+    const current = phrase(quantity, options, previous);
+    const currentPhrase = parsePhrase(current);
+
+    if(shouldPrepend(options, quantity, remaining + 1)) {
+      yield options.prependEach;
+    }
+
+    if(wrapEach) {
+      yield open(wrapEach);
+    }
+
+    for(let word of currentPhrase) {
+      yield word;
+    }
+
+    if(wrapEach) {
+      yield close(wrapEach);
+    }
+
+  }
+
+  if(wrapAll) {
+    yield close(wrapAll);
   }
 
 };

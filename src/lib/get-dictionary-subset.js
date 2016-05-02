@@ -6,7 +6,7 @@ const parsePhrase = require('./parse-phrase');
 
 
 
-module.exports = function getDictionarySubset(dictionary, maxLength, exclude) {
+module.exports = function getDictionarySubset(dictionary, maxLength = Infinity, exclude) {
 
   return dictionary.filter(phrase => {
 

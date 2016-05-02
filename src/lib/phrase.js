@@ -1,18 +1,13 @@
 'use strict';
 
-
-
-const merge = require('merge');
 const random = require('random-js');
 const dictionary = require('../../dictionary');
 const getDictionarySubset = require('./get-dictionary-subset');
 const randomEngine = random.engines.mt19937().autoSeed();
 
-
-
 module.exports = function phrase(maxLength = 1, options, _exclude) {
 
-  options = merge({
+  options = Object.assign({
     dictionary: [],
     concentration: 0.5
   }, options);
@@ -29,7 +24,7 @@ module.exports = function phrase(maxLength = 1, options, _exclude) {
   let subset = getDictionarySubset(currentDictionary, maxLength, _exclude);
 
   if(subset.length < 1) {
-    subset = getSubset(dictionary);
+    subset = getDictionarySubset(dictionary);
   }
 
   return subset.length > 0 ?

@@ -1,12 +1,8 @@
 'use strict';
 
-
-
 const { inherits } = require('util');
 const { Readable } = require('stream');
 const generators = require('./generators');
-
-
 
 module.exports = function stream(options) {
 
