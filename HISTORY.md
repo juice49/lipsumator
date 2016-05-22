@@ -1,6 +1,8 @@
 # History
 
 ## Next
+- Add templating
+- Fix infinite generation
 - Add `package.json` keyword
 
 ## 1.0.2 - 04/06/15

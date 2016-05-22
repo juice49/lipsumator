@@ -2,22 +2,22 @@
 
 const sentences = require('./sentences');
 const shouldPrepend = require('../should-prepend');
-const { open, close } = require('../wrap');
+const { open, close } = require('../template');
 
-module.exports = function* paragraphs(quantity = 1, options) {
+module.exports = function* paragraphs(quantity = 1, options = {}) {
 
   const sentenceOptions = Object.assign({}, options, {
     prependEach: null,
-    wrapAll: null,
-    wrapEach: null
+    templateAll: null,
+    templateEach: null
   });
 
   let remaining = quantity;
   const paragraph = [ ...sentences(4, sentenceOptions) ];
-  const { wrapAll, wrapEach } = options;
+  const { templateAll, templateEach } = options;
 
-  if(wrapAll) {
-    yield open(wrapAll);
+  if(templateAll) {
+    yield open(templateAll);
   }
 
   while(remaining --) {
@@ -26,20 +26,20 @@ module.exports = function* paragraphs(quantity = 1, options) {
       yield ' ';
     }
 
-    if(wrapEach) {
-      yield open(wrapEach);
+    if(templateEach) {
+      yield open(templateEach);
     }
 
     yield paragraph.join(' ');
 
-    if(wrapEach) {
-      yield close(wrapEach);
+    if(templateEach) {
+      yield close(templateEach);
     }
 
   }
 
-  if(wrapAll) {
-    yield close(wrapAll);
+  if(templateAll) {
+    yield close(templateAll);
   }
 
 };

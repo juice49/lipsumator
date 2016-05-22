@@ -22,10 +22,10 @@ const args = yargs
   .describe('insert-spaces', 'Insert spaces between output units')
   .default('insert-spaces', true)
   .alias('insert-spaces', 'sp')
-  .describe('wrap-all', 'String to wrap all output with')
-  .alias('wrap-all', 'wa')
-  .describe('wrap-each', 'String to wrap each output unit with')
-  .alias('wrap-each', 'we')
+  .describe('template-all', 'String to template all output with')
+  .alias('template-all', 'ta')
+  .describe('template-each', 'String to template each output unit with')
+  .alias('template-each', 'te')
   .help('help')
   .alias('help', 'h')
   .argv;
@@ -47,11 +47,14 @@ if(args.insertSpaces) {
 
 const passArgs = [
   'concentration',
-  'wrapAll',
-  'wrapEach',
+  'templateAll',
+  'templateEach',
   'dictionary'
 ];
 
-passArgs.forEach(key => options[key] = args[key]);
+passArgs
+  .map(key => [ key, args[key] ])
+  .filter(([ key, value ]) => typeof value !== 'undefined')
+  .forEach(([ key, value ]) => options[key] = value);
 
 stream(options).pipe(process.stdout);

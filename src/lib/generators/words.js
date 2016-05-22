@@ -1,45 +1,20 @@
 'use strict';
 
+const generate = require('../generate');
 const phrase = require('../phrase');
 const parsePhrase = require('../parse-phrase');
-const shouldPrepend = require('../should-prepend');
-const { open, close } = require('../wrap');
 
 module.exports = function* words(quantity, options = {}) {
-
-  const { wrapAll, wrapEach } = options;
-  let remaining = quantity;
-  let previous;
-
-  if(wrapAll) {
-    yield open(wrapAll);
-  }
-
-  while(remaining --) {
-
-    const current = phrase(quantity, options, previous);
-    const currentPhrase = parsePhrase(current);
-
-    if(shouldPrepend(options, quantity, remaining + 1)) {
-      yield options.prependEach;
+  yield* generate({
+    quantity: options.quantity,
+    prependEach: options.prependEach,
+    templateEach: options.templateEach,
+    templateAll: options.templateAll,
+    generateFn() {
+      let previous; // xxx
+      const current = phrase(quantity, options, previous);
+      const currentPhrase = parsePhrase(current);
+      return currentPhrase;
     }
-
-    if(wrapEach) {
-      yield open(wrapEach);
-    }
-
-    for(let word of currentPhrase) {
-      yield word;
-    }
-
-    if(wrapEach) {
-      yield close(wrapEach);
-    }
-
-  }
-
-  if(wrapAll) {
-    yield close(wrapAll);
-  }
-
+  });
 };
